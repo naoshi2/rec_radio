@@ -1,7 +1,7 @@
 #!/bin/bash
 
 URL="rtmpe://netradio-${1}-flash.nhk.jp"
-HOMEDIR="/home/naoshi/radio/data"
+HOMEDIR="${HOME}/radio/data"
 TMPDIR="/tmp"
 DATE=`date '+%Y%m%d_%H%M'`
 if [ $# -lt 2 ]; then
