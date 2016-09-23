@@ -8,7 +8,16 @@ keyfile="/tmp/authkey.png"
 LOGFILE="${HOME}/radio/log/rec.log"
 home_dir="${HOME}/radio/data"
 
+if [ ! -e "${HOME}/radio" ]; then
+   mkdir -p ${HOME}/radio/data
+   mkdir -p ${HOME}/radio/log
+   touch ${LOGFILE}
+fi
+
 echo "Start $date : $0 $1 $2 $3" | tee -a ${LOGFILE}
+
+channel=$1
+DURATION=`expr $2 \* 60`
 
 if [ $# -eq 2 ]; then
   FILENAME="${channel}_${date}"
@@ -18,10 +27,6 @@ else
   echo "usage : $0 channel_name duration(minuites) [file name]" | tee -a ${LOGFILE}
   exit 1
 fi
-
-channel=$1
-DURATION=`expr $2 \* 60`
-
 
 # get player
 if [ ! -f $playerfile ]; then
@@ -153,5 +158,5 @@ echo "  ==== end ffmpeg ==== " | tee -a ${LOGFILE}
 #fi
 
 date=`date '+%Y-%m-%d-%H%M'`
-echo "End $date : success ${home_dir}/${channel}_${date}.mp3" | tee -a ${LOGFILE}
+echo "End $date : success ${home_dir}/${FILENAME}.mp3" | tee -a ${LOGFILE}
 echo "" | tee -a ${LOGFILE}
